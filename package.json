@@ -1,0 +1,51 @@
+{
+  "name": "regexr",
+  "version": "0.0.0",
+  "description": "For composing regular expressions.",
+  "main": "regexr.js",
+  "browser": "regexr.js",
+  "global": "regexr.js",
+  "scripts": {
+    "test": "echo 'TODO: Test script' && exit 1",
+    "clean": "mv infamous.js infamous.save && rm -rf ./*.js ./*.js.map && mv infamous.save infamous.js",
+    "prepublish": "npm run build-cjs",
+    "build-umd": "babel src --source-maps --out-dir . --modules umd",
+    "build-cjs": "babel src --source-maps --out-dir . --modules common",
+    "build-amd": "babel src --source-maps --out-dir . --modules amd",
+    "build-global": "echo 'TODO: Global build' && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git@github.com:trusktr/regexr.git"
+  },
+  "author": "Joseph Orbegoso Pea <joe@trusktr.io>",
+  "authors": [
+    "Joseph Orbegoso Pea <joe@trusktr.io>"
+  ],
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/trusktr/regexr/issues"
+  },
+  "homepage": "https://github.com/trusktr/regexr",
+  "dependencies": {},
+  "devDependencies": {
+    "babel": "^5.6.6"
+  },
+  "jspm": {
+    "registry": "jspm",
+    "dependencies": {},
+    "directories": {
+      "lib": "src"
+    }
+  },
+  "keywords": [
+    "regex",
+    "regexes",
+    "regexp",
+    "regexps",
+    "regular expression",
+    "regular-expression",
+    "regular expressions",
+    "regular-expressions"
+  ]
+}
