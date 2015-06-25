@@ -29,3 +29,20 @@ var spaceRegex = r`\s*`
 var finalRegex = r`/\(${spaceRegex}\/\[\\\d+\]\)*$/g`
 console.log( !!'( /[\\12358])'.match(finalRegex) ) // true
 ```
+
+You can also use pre-seleted, hand-picked regexes to compose with:
+
+```js
+var r = require('regexr')
+var functionCallRgx = r`${r.identifier}\s*\(\s*${r.identifier}\s*\)`
+console.log(!!"foo ( bar )".match(functionCallRgx)) // true
+```
+
+Hand-picked Regexes
+-------------------
+
+### r.identifier
+
+Matches a valid JavaScript identifier. See
+[this](http://stackoverflow.com/questions/2008279/validate-a-javascript-function-name/9392578#9392578)
+for details.
