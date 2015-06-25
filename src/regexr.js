@@ -30,8 +30,8 @@ function regexr(literals, ...substitutions) {
     // run the loop only for the substitution count.
     for (let i = 0; i < substitutions.length; i++) {
         result += literals[i]
-        result += substitutions[i] instanceof RegExp ?
-            substitutions[i].source : substitutions[i].toString()
+        result += substitutions[i] instanceof RegExp ? substitutions[i].source :
+            (substitutions[i] ? substitutions[i].toString() : '')
     }
 
     // add the last literal
