@@ -12,7 +12,7 @@
  *   - NOT operation like with regex-not package.
  *   - Caching like with the regex-cache package.
  */
-function regexr(literals, ...substitutions) {
+export default function regexr(literals, ...substitutions) {
     let result = ""
     let flags = ''
 
