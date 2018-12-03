@@ -66,4 +66,4 @@ r.number = r`/${r.integer}|${r.digit}*\.${r.integer}|${r.integer}\.${r.digit}*/`
  */
 r.escape = string => string.replace(/[.*+?^${}()|[\]\\]/g, '\\$&'); // $& means the whole matched string
 
-export const version = '1.4.3'
+export const version = '1.4.4'
