@@ -21,6 +21,7 @@ yarn-error.log
 
 # not global build, to be published
 !/global.js
+!/global.js.map
 
 # not config files
 !/.builderrc
