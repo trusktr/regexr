@@ -32,7 +32,7 @@
   },
   "devDependencies": {
     "builder": "^3.2.3",
-    "builder-js-package": "trusktr/builder-js-package#f291a3afedf4a034b919187b9ae2fd70ba45af39"
+    "builder-js-package": "trusktr/builder-js-package#88928cb3f16060d7c1d9baa052c42689696f38cf"
   },
   "jspm": {
     "registry": "jspm",
