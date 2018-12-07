@@ -7,7 +7,8 @@ tedious due to having to double-escape things.
 Basic example:
 
 ```js
-const r = require('regexr')
+import r from 'regexr'
+
 const int = /\d+/
 const USD = r`\$${int}(\.${int})?` // f.e. $3.45 or $5
 ```
@@ -46,7 +47,8 @@ console.log( !!'( /[\\12358])'.match(finalRegex) ) // true
 
 ```js
 // in ES6, we don't have to double escape, thanks to regexr:
-var r = require('regexr')
+import r from 'regexr'
+
 var spaceRegex = r`\s*`
 var finalRegex = r`/\(${spaceRegex}\/\[\\\d+\]\)*$/g`
 console.log( !!'( /[\\12358])'.match(finalRegex) ) // true
@@ -58,7 +60,9 @@ API
 ### ```` r`` ````
 
 ```js
-const r = require('regexr')
+import r from 'regexr'
+// or
+const r = require('regexr').default
 ```
 
 ```` r`` ```` is a template tag function that converts the given string into a
@@ -73,6 +77,27 @@ const integer = r`/${digit}+/`
 const number = r`/${integer}|${digit}*\.${integer}|${integer}\.${digit}*/` // f.e. 4.2, .5, 5.
 ```
 
+Helpers
+-------
+
+### `r.escape`
+
+Escape a plain string for matching literally inside a regex.
+
+Sometimes we want to match an exact string that may contain symbols that we need
+to escape in order to match the characters of the string literally.
+
+In the follow example, we want to find occurrences of the string `"value:
+$5.00"` in some input, so we need to escape the `money` string so that the
+dollar symbol (`$`) doesn't represent end-of-line and the period (`.`) doesn't
+mean any character:
+
+```js
+const money = '$5.00'
+const findValue5Regex = r`value: ${r.escape(money)}`
+console.log(findValue5Regex) // /value: \$5\.00/
+```
+
 Hand-picked Regexes
 -------------------
 
@@ -80,19 +105,20 @@ Regexr comes with some pre-selected regular expressions. For example, we can
 rewrite the first example:
 
 ```js
-const r = require('regexr')
+import r from 'regexr'
+
 const USD = r`\$${r.integer}(\.${r.integer})?` // f.e. $3.45 or $5
 ```
 
 where `r.integer` is an instance of `RegExp`.
 
-### r.identifier
+### `r.identifier`
 
 Matches a valid JavaScript identifier. See
 [this](http://stackoverflow.com/questions/2008279/validate-a-javascript-function-name/9392578#9392578)
 for details.
 
-### r.digit
+### `r.digit`
 
 Matches a single numerical digit (0-9).
 
@@ -103,7 +129,7 @@ Example:
 !!" 25 ".match(r` ${r.digit} `) // false
 ```
 
-### r.integer
+### `r.integer`
 
 Matches 1 or more digits.
 
@@ -113,7 +139,7 @@ Example:
 !!" 432 ".match(r` ${r.integer} `) // true
 ```
 
-### r.number
+### `r.number`
 
 Matches a JavaScript Number.
 
