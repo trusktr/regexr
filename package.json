@@ -1,6 +1,6 @@
 {
   "name": "regexr",
-  "version": "1.4.5",
+  "version": "1.5.0",
   "description": "For composing regular expressions.",
   "main": "index.js",
   "browser": "global.js",
