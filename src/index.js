@@ -55,7 +55,7 @@ r.functionHeader = r`\s*function\s*(${r.identifier})*\s*\(\s*${r.identifierList}
 
 r.digit = /\d/
 r.integer = r`/${r.digit}+/`
-r.number = r`/${r.integer}|${r.digit}*\.${r.integer}|${r.integer}\.${r.digit}*/`
+r.number = r`/(?:${r.digit}*\.${r.integer}|${r.integer}\.${r.digit}*|${r.integer})/`
 
 /** helpers */
 
