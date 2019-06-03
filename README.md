@@ -93,8 +93,8 @@ const money = "$5.00";
 const fiveDollarRegex = r`value: ${r.escape(money)}`;
 
 console.log(fiveDollarRegex); // /value: \$5\.00/
-console.log('value: $5.00'.match(fiveDollarRegex)); // true
-console.log('value: $5.50'.match(fiveDollarRegex)); // false
+console.log("value: $5.00".match(fiveDollarRegex)); // true
+console.log("value: $5.50".match(fiveDollarRegex)); // false
 ```
 
 ### Hand-picked Regexes
@@ -126,8 +126,8 @@ write:
 
 ```js
 const variableDeclaration = r`(const|let|var)\s+(${r.identifier})\s*=`;
-!!'const foo  ='.match(variableDeclaration) // true
-!!'const foo bar ='.match(variableDeclaration) // false
+!!"const foo  =".match(variableDeclaration); // true
+!!"const foo bar =".match(variableDeclaration); // false
 ```
 
 #### `r.digit`
@@ -163,4 +163,39 @@ Example:
 !!"4.2".match(r.number); // true
 !!"5.".match(r.number); // true
 !!".34".match(r.number); // true
+```
+
+#### `r.identifierList`
+
+Matches a comma separated list of legal JavaScript identifiers.
+
+Example:
+
+```js
+const identifiersInsideParens = r`\(${r.identifierList}\)`;
+
+!!"(foo,  bar,baz)".match(identifiersInsideParens); // true
+!!"(foo, ,bar, baz)".match(identifiersInsideParens); // false
+```
+
+#### `r.functionHeader`
+
+Matches a JavaScript function header.
+
+Example:
+
+```js
+const identifiersInsideParens = r`\(${r.identifierList}\)`;
+
+!!"function() {".match(r.functionHeader); // true
+!!"function asdf() {".match(r.functionHeader); // true
+!!"function (asdf ) {".match(r.functionHeader); // true
+!!"function asdf (asdf ) {".match(r.functionHeader); // true
+!!"function asdf(asdf  , asdf, ) {".match(r.functionHeader); // true
+!!"function (asdf, asdf, asdfa asdf ) {".match(r.functionHeader); // false
+!!"function asdf (asdf, asdf, asdfa asdf ) {".match(r.functionHeader); // false
+!!"function asdf asdf (asdf, asdf, asdfa ) {".match(r.functionHeader); // false
+!!"function asdf asdf (, asdf, asdf,) {".match(r.functionHeader); // false
+!!"function (asdf asdf) {".match(r.functionHeader); // false
+!!"function (asdf,,) {".match(r.functionHeader); // false
 ```
