@@ -13,34 +13,38 @@
  *   - Caching like with the regex-cache package.
  */
 export default function regexr(literals, ...substitutions) {
-    let result = ""
-    let flags = ''
+	let result = ''
+	let flags = ''
 
-    // We get the raw string that the user typed so that they don't have to
-    // escape backslashes, etc, inside of the regex. Awesome!!
-    literals = [].slice.call(literals.raw, 0)
-    const last = literals.length - 1
+	// We get the raw string that the user typed so that they don't have to
+	// escape backslashes, etc, inside of the regex. Awesome!!
+	literals = [].slice.call(literals.raw, 0)
+	const last = literals.length - 1
 
-    //trim space before and after the regex.
-    if (literals[0].match(/^\//)) {
-        literals[0] = literals[0].replace(/^\//, '')
+	//trim space before and after the regex.
+	if (literals[0].match(/^\//)) {
+		literals[0] = literals[0].replace(/^\//, '')
 
-        flags = literals[last].match(/\/[gimuy]*$/)
-        flags = flags[0].replace(/\//, '')
-        literals[last] = literals[last].replace(/\/[gimuy]*$/, '')
-    }
+		flags = literals[last].match(/\/[gimuy]*$/)
+		flags = flags[0].replace(/\//, '')
+		literals[last] = literals[last].replace(/\/[gimuy]*$/, '')
+	}
 
-    // run the loop only for the substitution count.
-    for (let i = 0; i < substitutions.length; i++) {
-        result += literals[i]
-        result += substitutions[i] instanceof RegExp ? substitutions[i].source :
-            (substitutions[i] ? substitutions[i].toString() : '')
-    }
+	// run the loop only for the substitution count.
+	for (let i = 0; i < substitutions.length; i++) {
+		result += literals[i]
+		result +=
+			substitutions[i] instanceof RegExp
+				? substitutions[i].source
+				: substitutions[i]
+				? substitutions[i].toString()
+				: ''
+	}
 
-    // add the last literal
-    result += literals[last]
+	// add the last literal
+	result += literals[last]
 
-    return new RegExp(result, flags)
+	return new RegExp(result, flags)
 }
 
 const r = regexr
@@ -67,6 +71,6 @@ r.number = r`/(?:${r.digit}*\.${r.integer}|${r.integer}\.${r.digit}*|${r.integer
  * RegExp). For example, "foo$bar" will be converted to "foo\$bar" so that the
  * `$` is not treated as a RegExp special character.
  */
-r.escape = string => string.replace(/[.*+?^${}()|[\]\\]/g, '\\$&'); // $& means the whole matched string
+r.escape = string => string.replace(/[.*+?^${}()|[\]\\]/g, '\\$&') // $& means the whole matched string
 
 export const version = '1.5.0'
