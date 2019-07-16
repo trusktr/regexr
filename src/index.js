@@ -1,16 +1,16 @@
 /**
  * Template tag function to make composing regexes easier.
  *
- * Example:
- *
- * ```js
- *   var regex1 = regex`/(this|that)*$/m`
- *   var regex2 = regex`/something|other_${regex1}/g`
- *   console.log(regex2) // /something|other_(this|that)*$/g
- * ```
  * TODO:
  *   - NOT operation like with regex-not package.
  *   - Caching like with the regex-cache package.
+ *
+ * @example
+ * 
+ *   import r from 'regexr'
+ *   const regex1 = r`/(this|that)*$/m`
+ *   const regex2 = r`/something|other_${regex1}/g`
+ *   console.log(regex2) // /something|other_(this|that)*$/g
  */
 export default function regexr(literals, ...substitutions) {
 	let result = ''
