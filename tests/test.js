@@ -59,6 +59,23 @@ describe('Regexr:', () => {
 		})
 	})
 
+	describe('r.classMethodHeader', () => {
+		it('matches a JavaScript method header', () => {
+			expect(!!' asdf() {'.match(r.classMethodHeader)).toBe(true)
+			expect(!!'asdf (asdf ) {'.match(r.classMethodHeader)).toBe(true)
+			expect(!!'asdf(asdf  , asdf, ) {'.match(r.classMethodHeader)).toBe(true)
+			expect(!!'asdf ( asdf, asdf, asdf) {'.match(r.classMethodHeader)).toBe(true)
+			expect(!!'() {'.match(r.classMethodHeader)).toBe(false)
+			expect(!!'(asdf ) {'.match(r.classMethodHeader)).toBe(false)
+			expect(!!'(asdf, asdf, asdfa asdf ) {'.match(r.classMethodHeader)).toBe(false)
+			expect(!!'asdf (asdf, asdf, asdfa asdf ) {'.match(r.classMethodHeader)).toBe(false)
+			expect(!!'asdf asdf (asdf, asdf, asdfa ) {'.match(r`^${r.classMethodHeader}$`)).toBe(false)
+			expect(!!'asdf asdf (, asdf, asdf,) {'.match(r.classMethodHeader)).toBe(false)
+			expect(!!'(asdf asdf) {'.match(r.classMethodHeader)).toBe(false)
+			expect(!!'(asdf,,) {'.match(r.classMethodHeader)).toBe(false)
+		})
+	})
+
 	describe('r.digit', () => {
 		it('matches a single number digit', () => {
 			expect(!!' 8 '.match(r` ${r.digit} `)).toBe(true)
