@@ -3,7 +3,7 @@
   "version": "1.5.1",
   "description": "For composing regular expressions.",
   "main": "index.js",
-  "browser": "global.js",
+  "module": "src/index.js",
   "global": "global.js",
   "scripts": {
     "clean": "builder run build:clean",
