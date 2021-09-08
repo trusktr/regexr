@@ -3,6 +3,8 @@
 Easily compose regular expressions. Doing this with plain strings would otherwise be
 tedious and error prone due to having to double-escape backslashes.
 
+#### `npm install regexr`
+
 Basic example:
 
 ```js
