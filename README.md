@@ -1,7 +1,7 @@
 # regexr
 
 Easily compose regular expressions. Doing this with plain strings would otherwise be
-tedious due to having to double-escape things.
+tedious and error prone due to having to double-escape backslashes.
 
 Basic example:
 
