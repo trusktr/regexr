@@ -1,6 +1,6 @@
 # regexr
 
-Easily compose regular expressions. Doing this with strings would otherwise be
+Easily compose regular expressions. Doing this with plain strings would otherwise be
 tedious due to having to double-escape things.
 
 Basic example:
