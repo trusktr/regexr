@@ -1,10 +1,17 @@
 {
 	"name": "regexr",
-	"version": "2.0.0",
 	"description": "For composing regular expressions.",
-	"main": "index.js",
-	"module": "src/index.js",
-	"global": "global.js",
+	"version": "2.0.0",
+	"license": "MIT",
+	"homepage": "https://github.com/trusktr/regexr",
+	"main": "dist/index.js",
+	"types": "dist/index.d.ts",
+	"type": "module",
+	"exports COMMENT:": "This removes 'dist' from import statements, as well as replaces the 'main' field. See https://github.com/nodejs/node/issues/14970#issuecomment-571887546",
+	"exports": {
+		".": "./dist/index.js",
+		"./": "./dist/"
+	},
 	"scripts": {
 		"LUME SCRIPTS XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX": "",
 		"clean": "lume clean",
@@ -28,15 +35,9 @@
 		"type": "git",
 		"url": "git@github.com:trusktr/regexr.git"
 	},
-	"author": "Joseph Orbegoso Pea <joe@trusktr.io>",
-	"authors": [
-		"Joseph Orbegoso Pea <joe@trusktr.io>"
-	],
-	"license": "MIT",
 	"bugs": {
 		"url": "https://github.com/trusktr/regexr/issues"
 	},
-	"homepage": "https://github.com/trusktr/regexr",
 	"dependencies": {},
 	"devDependencies": {
 		"@lume/cli": "^0.9.0"
