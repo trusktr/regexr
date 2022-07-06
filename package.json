@@ -1,54 +1,61 @@
 {
-  "name": "regexr",
-  "version": "1.6.0",
-  "description": "For composing regular expressions.",
-  "main": "index.js",
-  "module": "src/index.js",
-  "global": "global.js",
-  "scripts": {
-    "clean": "builder run build:clean",
-    "build": "builder run build:prod",
-    "dev": "builder run build:dev",
-    "test": "builder run npm:test",
-    "preversion": "builder run npm:preversion",
-    "version": "builder run npm:version",
-    "postversion": "builder run npm:postversion"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git@github.com:trusktr/regexr.git"
-  },
-  "author": "Joseph Orbegoso Pea <joe@trusktr.io>",
-  "authors": [
-    "Joseph Orbegoso Pea <joe@trusktr.io>"
-  ],
-  "license": "MIT",
-  "bugs": {
-    "url": "https://github.com/trusktr/regexr/issues"
-  },
-  "homepage": "https://github.com/trusktr/regexr",
-  "dependencies": {
-    "@babel/runtime": "7.0.0-beta.46"
-  },
-  "devDependencies": {
-    "builder": "^3.2.3",
-    "builder-js-package": "trusktr/builder-js-package#88928cb3f16060d7c1d9baa052c42689696f38cf"
-  },
-  "jspm": {
-    "registry": "jspm",
-    "dependencies": {},
-    "directories": {
-      "lib": "src"
-    }
-  },
-  "keywords": [
-    "regex",
-    "regexes",
-    "regexp",
-    "regexps",
-    "regular expression",
-    "regular-expression",
-    "regular expressions",
-    "regular-expressions"
-  ]
+	"name": "regexr",
+	"version": "1.6.0",
+	"description": "For composing regular expressions.",
+	"main": "index.js",
+	"module": "src/index.js",
+	"global": "global.js",
+	"scripts": {
+		"LUME SCRIPTS XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX": "",
+		"clean": "lume clean",
+		"build": "lume build",
+		"dev": "lume dev",
+		"typecheck": "lume typecheck",
+		"typecheck:watch": "lume typecheckWatch",
+		"test": "lume test",
+		"test:debug": "lume testDebug",
+		"prettier": "lume prettier",
+		"prettier:check": "lume prettierCheck",
+		"release:patch": "lume releasePatch",
+		"release:minor": "lume releaseMinor",
+		"release:major": "lume releaseMajor",
+		"version": "lume versionHook",
+		"postversion": "lume postVersionHook",
+		"XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX OTHER SCRIPTS": "",
+		"prepare": "npm run build"
+	},
+	"repository": {
+		"type": "git",
+		"url": "git@github.com:trusktr/regexr.git"
+	},
+	"author": "Joseph Orbegoso Pea <joe@trusktr.io>",
+	"authors": [
+		"Joseph Orbegoso Pea <joe@trusktr.io>"
+	],
+	"license": "MIT",
+	"bugs": {
+		"url": "https://github.com/trusktr/regexr/issues"
+	},
+	"homepage": "https://github.com/trusktr/regexr",
+	"dependencies": {},
+	"devDependencies": {
+		"@lume/cli": "^0.9.0"
+	},
+	"jspm": {
+		"registry": "jspm",
+		"dependencies": {},
+		"directories": {
+			"lib": "src"
+		}
+	},
+	"keywords": [
+		"regex",
+		"regexes",
+		"regexp",
+		"regexps",
+		"regular expression",
+		"regular-expression",
+		"regular expressions",
+		"regular-expressions"
+	]
 }

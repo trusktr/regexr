@@ -8,10 +8,10 @@ tedious and error prone due to having to double-escape backslashes.
 Basic example:
 
 ```js
-import r from "regexr";
+import r from 'regexr'
 
-const int = /\d+/;
-const USD = r`\$${int}(\.${int})?`; // f.e. $3.45 or $5
+const int = /\d+/
+const USD = r`\$${int}(\.${int})?` // f.e. $3.45 or $5
 ```
 
 (Note that `int` is an instance of `RegExp` and can be composed into the
@@ -40,19 +40,18 @@ examples achieving the same thing in ES5 and ES6 respectively:
 
 ```js
 // in ES5, the double escaping can get confusing:
-var spaceRegex = "\\s*";
-var finalRegex = "\\(" + spaceRegex + "\\/\\[\\\\\\d+\\]\\)*$";
-finalRegex = new RegExp(finalRegex, "g");
-console.log(!!"( /[\\12358])".match(finalRegex)); // true
+const spaceRegex = '\\s*'
+const finalRegex = new RegExp('\\(' + spaceRegex + '\\/\\[\\\\\\d+\\]\\)*$', 'g')
+console.log(!!'( /[\\12358])'.match(finalRegex)) // true
 ```
 
 ```js
 // in ES6, we don't have to double escape, thanks to regexr:
-import r from "regexr";
+import r from 'regexr'
 
-var spaceRegex = r`\s*`;
-var finalRegex = r`/\(${spaceRegex}\/\[\\\d+\]\)*$/g`;
-console.log(!!"( /[\\12358])".match(finalRegex)); // true
+const spaceRegex = r`\s*`
+const finalRegex = r`/\(${spaceRegex}\/\[\\\d+\]\)*$/g`
+console.log(!!'( /[\\12358])'.match(finalRegex)) // true
 ```
 
 ## API
@@ -60,9 +59,9 @@ console.log(!!"( /[\\12358])".match(finalRegex)); // true
 #### ` r`` ` template tag function
 
 ```js
-import r from "regexr";
+import r from 'regexr'
 // or
-const r = require("regexr").default;
+const r = require('regexr').default
 ```
 
 ` r`` ` is a template tag function that converts the given string into a
@@ -72,31 +71,31 @@ into the string, and will be composed into the final `RegExp`.
 Example:
 
 ```js
-const digit = /\d/;
-const integer = r`/${digit}+/`;
-const number = r`/${integer}|${digit}*\.${integer}|${integer}\.${digit}*/`; // f.e. 4.2, .5, 5.
+const digit = /\d/
+const integer = r`/${digit}+/`
+const number = r`/${integer}|${digit}*\.${integer}|${integer}\.${digit}*/` // f.e. 4.2, .5, 5.
 ```
 
 ### Helpers
 
-#### `r.escape`
+#### `escape` (alias `e`)
 
-Escape a plain string for matching literally inside a regex.
+Escape (add backslashes to) a string for so that we can match all symbols in the
+string literally when the string is used as a regex.
 
-Sometimes we want to match an exact string that may contain symbols that we need
-to escape in order to match the characters of the string literally.
-
-In the follow example, we want to find occurrences of the string `"value: $5.00"` in some input, so we need to escape the `money` string so that the
+In the following example, we want to find occurrences of the string `"value: $5.00"` in some input, so we need to escape the `money` string so that the
 dollar symbol (`$`) doesn't represent end-of-line and the period (`.`) doesn't
 mean any character:
 
 ```js
-const money = "$5.00";
-const fiveDollarRegex = r`value: ${r.escape(money)}`;
+import {e} from 'regexr'
 
-console.log(fiveDollarRegex); // /value: \$5\.00/
-console.log("value: $5.00".match(fiveDollarRegex)); // true
-console.log("value: $5.50".match(fiveDollarRegex)); // false
+const money = '$5.00'
+const fiveDollarRegex = r`value: ${e(money)}`
+
+console.log(fiveDollarRegex) // /value: \$5\.00/
+console.log('value: $5.00'.match(fiveDollarRegex)) // true
+console.log('value: $5.50'.match(fiveDollarRegex)) // false
 ```
 
 ### Hand-picked Regexes
@@ -105,17 +104,18 @@ Regexr comes with some pre-selected regular expressions. For example, we can
 rewrite the first example:
 
 ```js
-import r from "regexr";
+import r from 'regexr'
+import * as regs from 'regexr/regexes'
 
-const USD = r`\$${r.integer}(\.${r.integer})?`; // f.e. $3.45 or $5
+const USD = r`\$${regs.integer}(\.${regs.integer})?` // f.e. $3.45 or $5
 ```
 
-where `r.integer` is an instance of `RegExp`.
+where `regs.integer` is an instance of `RegExp`.
 
 **_NOTE! Some of the following RegExps require to be wrapped in `()` when they
 are being composed into bigger RegExps. These will be noted below._**
 
-#### `r.identifier`
+#### `regs.identifier`
 
 Matches a valid JavaScript identifier. See
 [this](http://stackoverflow.com/questions/2008279/validate-a-javascript-function-name/9392578#9392578)
@@ -127,77 +127,83 @@ For example, to match a the beginning of a JS variable declaration, you could
 write:
 
 ```js
-const variableDeclaration = r`(const|let|var)\s+(${r.identifier})\s*=`;
-!!"const foo  =".match(variableDeclaration); // true
-!!"const foo bar =".match(variableDeclaration); // false
+import * as regs from 'regexr/regexes'
+const variableDeclaration = r`(const|let|var)\s+(${regs.identifier})\s*=`
+!!'const foo  ='.match(variableDeclaration) // true
+!!'const foo bar ='.match(variableDeclaration) // false
 ```
 
-#### `r.digit`
+#### `regs.digit`
 
 Matches a single numerical digit (0-9).
 
 Example:
 
 ```js
-!!" 8 ".match(r` ${r.digit} `); // true
-!!" 25 ".match(r` ${r.digit} `); // false
+import * as regs from 'regexr/regexes'
+!!' 8 '.match(r` ${regs.digit} `) // true
+!!' 25 '.match(r` ${regs.digit} `) // false
 ```
 
-#### `r.integer`
+#### `regs.integer`
 
 Matches 1 or more digits.
 
 Example:
 
 ```js
-!!" 432 ".match(r` ${r.integer} `); // true
+import * as regs from 'regexr/regexes'
+!!' 432 '.match(r` ${regs.integer} `) // true
 ```
 
-#### `r.number`
+#### `regs.number`
 
 Matches a JavaScript Number.
 
 Example:
 
 ```js
-!!"3".match(r.number); // true
-!!"432".match(r.number); // true
-!!"4.2".match(r.number); // true
-!!"5.".match(r.number); // true
-!!".34".match(r.number); // true
+import * as regs from 'regexr/regexes'
+!!'3'.match(regs.number) // true
+!!'432'.match(regs.number) // true
+!!'4.2'.match(regs.number) // true
+!!'5.'.match(regs.number) // true
+!!'.34'.match(regs.number) // true
 ```
 
-#### `r.identifierList`
+#### `regs.identifierList`
 
 Matches a comma separated list of legal JavaScript identifiers.
 
 Example:
 
 ```js
-const identifiersInsideParens = r`\(${r.identifierList}\)`;
+import * as regs from 'regexr/regexes'
+const identifiersInsideParens = r`\(${regs.identifierList}\)`
 
-!!"(foo,  bar,baz)".match(identifiersInsideParens); // true
-!!"(foo, ,bar, baz)".match(identifiersInsideParens); // false
+!!'(foo,  bar,baz)'.match(identifiersInsideParens) // true
+!!'(foo, ,bar, baz)'.match(identifiersInsideParens) // false
 ```
 
-#### `r.functionHeader`
+#### `regs.functionHeader`
 
 Matches a JavaScript function header.
 
 Example:
 
 ```js
-const identifiersInsideParens = r`\(${r.identifierList}\)`;
+import * as regs from 'regexr/regexes'
+const identifiersInsideParens = r`\(${regs.identifierList}\)`
 
-!!"function() {".match(r.functionHeader); // true
-!!"function asdf() {".match(r.functionHeader); // true
-!!"function (asdf ) {".match(r.functionHeader); // true
-!!"function asdf (asdf ) {".match(r.functionHeader); // true
-!!"function asdf(asdf  , asdf, ) {".match(r.functionHeader); // true
-!!"function (asdf, asdf, asdfa asdf ) {".match(r.functionHeader); // false
-!!"function asdf (asdf, asdf, asdfa asdf ) {".match(r.functionHeader); // false
-!!"function asdf asdf (asdf, asdf, asdfa ) {".match(r.functionHeader); // false
-!!"function asdf asdf (, asdf, asdf,) {".match(r.functionHeader); // false
-!!"function (asdf asdf) {".match(r.functionHeader); // false
-!!"function (asdf,,) {".match(r.functionHeader); // false
+!!'function() {'.match(regs.functionHeader) // true
+!!'function asdf() {'.match(regs.functionHeader) // true
+!!'function (asdf ) {'.match(regs.functionHeader) // true
+!!'function asdf (asdf ) {'.match(regs.functionHeader) // true
+!!'function asdf(asdf  , asdf, ) {'.match(regs.functionHeader) // true
+!!'function (asdf, asdf, asdfa asdf ) {'.match(regs.functionHeader) // false
+!!'function asdf (asdf, asdf, asdfa asdf ) {'.match(regs.functionHeader) // false
+!!'function asdf asdf (asdf, asdf, asdfa ) {'.match(regs.functionHeader) // false
+!!'function asdf asdf (, asdf, asdf,) {'.match(regs.functionHeader) // false
+!!'function (asdf asdf) {'.match(regs.functionHeader) // false
+!!'function (asdf,,) {'.match(regs.functionHeader) // false
 ```
