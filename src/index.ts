@@ -18,31 +18,38 @@ export function regexr<T extends TemplateStringsArray>(literals: T, ...substitut
 
 	// We get the raw string that the user typed so that they don't have to
 	// escape backslashes, etc, inside of the regex. Awesome!!
-	// const rawLiterals = [].slice.call(literals.raw, 0)
 	const rawLiterals = [...literals.raw]
 	const last = rawLiterals.length - 1
-	const flagMatch = rawLiterals[last].match(/\/[gimuy]*$/)
+	const flagsMatch = rawLiterals[last].match(/\/[gimuy]*$/)
+	let flagMatchError = false
 
-	//trim space before and after the regex.
+	// trim space before and after the regex.
 	if (rawLiterals[0].match(/^\//)) {
-		if (!flagMatch) throw new TypeError('regex has unmatched slashes, f.e. r`/foo` or r`foo/` instead of r`/foo/`')
-
-		rawLiterals[0] = rawLiterals[0].replace(/^\//, '')
-		flags = flagMatch[0].replace(/\//, '')
-		rawLiterals[last] = rawLiterals[last].replace(/\/[gimuy]*$/, '')
+		if (!flagsMatch) flagMatchError = true
+		else {
+			rawLiterals[0] = rawLiterals[0].replace('/', '')
+			flags = flagsMatch[0].replace('/', '')
+			rawLiterals[last] = rawLiterals[last].replace(/\/[gimuy]*$/, '')
+		}
 	} else {
-		if (flagMatch) throw new TypeError('regex has unmatched slashes, f.e. r`/foo` or r`foo/` instead of r`/foo/`')
+		if (flagsMatch) flagMatchError = true
 	}
 
 	// run the loop only for the substitution count.
-	for (let i = 0; i < substitutions.length; i++) {
+	for (let i = 0, l = substitutions.length; i < l; i += 1) {
+		const sub = substitutions[i]
 		result += rawLiterals[i]
-		result +=
-			substitutions[i] instanceof RegExp ? substitutions[i].source : substitutions[i] ? substitutions[i].toString() : ''
+		result += sub instanceof RegExp ? sub.source : String(sub)
 	}
 
 	// add the last literal
 	result += rawLiterals[last]
+
+	if (flagMatchError) {
+		throw new TypeError(
+			`regex has unmatched slashes, f.e. r\`/foo\` or r\`foo/\` instead of r\`/foo/\`. Input was: ${result}.`,
+		)
+	}
 
 	return new RegExp(result, flags)
 }
@@ -59,6 +66,8 @@ export const r = regexr
  * RegExp). For example, "foo$bar" will be converted to "foo\$bar" so that the
  * `$` is not treated as a RegExp special character.
  */
+// TODO replace certain characters with escape representations, f.e. line breaks
+// with \n, tabs with \t, etc
 export const escape = (string: string) => string.replace(/[.*+?^${}()|[\]\\]/g, '\\$&') // $& means the whole matched string
 
 export const e = escape
