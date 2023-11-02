@@ -32,5 +32,5 @@ export function regexr(literals, ...substitutions) {
 export const r = regexr;
 export const escape = (string) => string.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
 export const e = escape;
-export const version = '2.0.3';
+export const version = '2.0.4';
 //# sourceMappingURL=index.js.map
