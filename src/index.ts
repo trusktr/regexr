@@ -56,10 +56,11 @@ export function regexr<T extends TemplateStringsArray>(literals: T, ...substitut
 
 export const r = regexr
 
-/** helpers */
+/** helpers /////////////////////////////////////////////////////////////////////////////// */
 
 /**
- * escapes a string literal
+ * Escapes a string literal.
+ *
  * Adapted from https://stackoverflow.com/questions/3446170/escape-string-for-use-in-javascript-regex
  *
  * @param {string} A string to be literally matched (it does not represent a
