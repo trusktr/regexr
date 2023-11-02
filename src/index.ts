@@ -72,4 +72,4 @@ export const escape = (string: string) => string.replace(/[.*+?^${}()|[\]\\]/g, 
 
 export const e = escape
 
-export const version = '2.0.2'
+export const version = '2.0.3'

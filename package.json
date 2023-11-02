@@ -1,7 +1,7 @@
 {
 	"name": "regexr",
 	"description": "For composing regular expressions.",
-	"version": "2.0.2",
+	"version": "2.0.3",
 	"license": "MIT",
 	"homepage": "https://github.com/trusktr/regexr",
 	"main": "dist/index.js",
