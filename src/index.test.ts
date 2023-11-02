@@ -1,5 +1,12 @@
 import {r, e} from './index.js'
 
+// FIXME no any
+declare global {
+	const describe: any
+	const expect: any
+	const it: any
+}
+
 describe('Regexr:', () => {
 	describe('regexr, r', () => {
 		it('composes regexes while eliminating double-escape hell', () => {
